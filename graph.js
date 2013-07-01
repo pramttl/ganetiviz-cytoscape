@@ -59,15 +59,15 @@ $('#cy').cytoscape({
   elements: {
     nodes: [
       { data: { id: 'node1.example.com', name: 'node1.example.com', weight: 10, faveColor: '#6FB1FC', faveShape: 'ellipse' }, 
-        position: {x: pp[0].x, y: pp[0].y}, },
+        position: {x: pp[0].x, y: pp[0].y}, classes: 'ganeti-node'  },
       { data: { id: 'node2.example.com', name: 'node2.example.com', weight: 10, faveColor: '#6FB1FC', faveShape: 'ellipse' }, 
-        position: {x: pp[1].x, y: pp[1].y}, },
+        position: {x: pp[1].x, y: pp[1].y}, classes: 'ganeti-node' },
       { data: { id: 'node3.example.com', name: 'node3.example.com', weight: 10, faveColor: '#6FB1FC', faveShape: 'ellipse' }, 
-        position: {x: pp[2].x, y: pp[2].y}, },
+        position: {x: pp[2].x, y: pp[2].y}, classes: 'ganeti-node'},
       { data: { id: 'node4.example.com', name: 'node4.example.com', weight: 10, faveColor: '#6FB1FC', faveShape: 'ellipse' }, 
-        position: {x: pp[3].x, y: pp[3].y}, },
+        position: {x: pp[3].x, y: pp[3].y}, classes: 'ganeti-node'},
       { data: { id: 'node5.example.com', name: 'node5.example.com', weight: 10, faveColor: '#6FB1FC', faveShape: 'ellipse' }, 
-        position: {x: pp[4].x, y: pp[4].y}, },
+        position: {x: pp[4].x, y: pp[4].y}, classes: 'ganeti-node'},
     ],
     edges: [
       { data: { source: 'node1.example.com', target: 'node5.example.com', faveColor: '#6FB1FC', strength: 3 } },
