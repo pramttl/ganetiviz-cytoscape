@@ -1,0 +1,6 @@
+demo-server.sh
+*.json
+*.*~
+*~
+build/
+build/*
