@@ -8,7 +8,6 @@ function polypointscircle(N,x0,y0,R) {
       polypoints.push({x:x,y:y})
     }
     return polypoints;
-    // Example: polypoints = 
 };
 
 var pp = polypointscircle(5,500,500,200)
@@ -71,7 +70,26 @@ $('#cy').cytoscape({
         position: {x: pp[4].x, y: pp[4].y}, },
     ],
     edges: [
-      { data: { source: 'node1.example.com', target: 'node2.example.com', faveColor: '#6FB1FC', strength: 90 } },
+      { data: { source: 'node1.example.com', target: 'node5.example.com', faveColor: '#6FB1FC', strength: 3 } },
+      { data: { source: 'node1.example.com', target: 'node2.example.com', faveColor: '#6FB1FC', strength: 3 } },
+      { data: { source: 'node1.example.com', target: 'node4.example.com', faveColor: '#6FB1FC', strength: 5 } },
+      { data: { source: 'node1.example.com', target: 'node3.example.com', faveColor: '#6FB1FC', strength: 9 } },
+      { data: { source: 'node2.example.com', target: 'node5.example.com', faveColor: '#6FB1FC', strength: 10 } },
+      { data: { source: 'node2.example.com', target: 'node4.example.com', faveColor: '#6FB1FC', strength: 4 } },
+      { data: { source: 'node2.example.com', target: 'node1.example.com', faveColor: '#6FB1FC', strength: 6 } },
+      { data: { source: 'node2.example.com', target: 'node3.example.com', faveColor: '#6FB1FC', strength: 3 } },
+      { data: { source: 'node3.example.com', target: 'node5.example.com', faveColor: '#6FB1FC', strength: 7 } },
+      { data: { source: 'node3.example.com', target: 'node2.example.com', faveColor: '#6FB1FC', strength: 1 } },
+      { data: { source: 'node3.example.com', target: 'node4.example.com', faveColor: '#6FB1FC', strength: 10 } },
+      { data: { source: 'node3.example.com', target: 'node1.example.com', faveColor: '#6FB1FC', strength: 2 } },
+      { data: { source: 'node4.example.com', target: 'node5.example.com', faveColor: '#6FB1FC', strength: 2 } },
+      { data: { source: 'node4.example.com', target: 'node2.example.com', faveColor: '#6FB1FC', strength: 5 } },
+      { data: { source: 'node4.example.com', target: 'node1.example.com', faveColor: '#6FB1FC', strength: 6 } },
+      { data: { source: 'node4.example.com', target: 'node3.example.com', faveColor: '#6FB1FC', strength: 5 } },
+      { data: { source: 'node5.example.com', target: 'node2.example.com', faveColor: '#6FB1FC', strength: 12 } },
+      { data: { source: 'node5.example.com', target: 'node4.example.com', faveColor: '#6FB1FC', strength: 3 } },
+      { data: { source: 'node5.example.com', target: 'node1.example.com', faveColor: '#6FB1FC', strength: 4 } },
+      { data: { source: 'node5.example.com', target: 'node3.example.com', faveColor: '#6FB1FC', strength: 3 } },
     ]
   },
   
