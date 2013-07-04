@@ -518,7 +518,6 @@ $('#cy').cytoscape({
         snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
         //console.log(snode_edge_selector);
         eles = cy.$(snode_edge_selector)
-        // eles.css({'line-color':"red", 'target-arrow-color':"red"});
         eles.toggleClass("active",true);
     });
 
