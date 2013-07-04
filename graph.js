@@ -110,6 +110,11 @@ $('#cy').cytoscape({
       .css({
         'target-arrow-shape': 'none'
       })
+    .selector('edge.active')
+      .css({
+        'line-color':"red",
+        'target-arrow-color':"red"
+      })
     .selector('.faded')
       .css({
         'opacity': 0.25,
@@ -492,22 +497,30 @@ $('#cy').cytoscape({
   
   ready: function(){
     window.cy = this;
-    //cy.$('node.ganeti-node').click(function(){
-    //    $('node.ganeti-instance').css({visibility:'visible'})
-    //});
-    
+
+    // To make Primary Instances corresponding to a Ganeti-Node visible.
     cy.$('node.ganeti-node').click(function(){
         // First hide any of the instance-vertices that are already visible.
         cy.$(".ganeti-instance").css({visibility:"hidden"});
         // Now, show the instance vertices corresponding to this node (being clicked)
         var branches_selector = "edge[source='" + this.id() + "']";
+        // Make target of each branch ending at an instance vertice visible.
         cy.$(branches_selector).filter(".instance-edge").each(function(i, branch){
-            branch.target()[0].css({visibility:'visible'});;
+            branch.target()[0].css({visibility:'visible'});
         });
-       //cy.$(branches_selector).filter(".instance-edge")[0].target()[0].css({visibility:'visible'});
     });
 
+    // Highlights the edge indicating failover direction.
+    cy.$('node.ganeti-instance').mousedown(function(){
+        cy.$('edge').toggleClass("active",false);
+        pnode = FullGraph[this.id()][0];
+        snode = FullGraph[this.id()][1];
+        snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
+        //console.log(snode_edge_selector);
+        eles = cy.$(snode_edge_selector)
+        // eles.css({'line-color':"red", 'target-arrow-color':"red"});
+        eles.toggleClass("active",true);
+    });
 
-    // giddy up
   }
 });
