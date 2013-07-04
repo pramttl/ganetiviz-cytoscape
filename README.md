@@ -3,8 +3,8 @@
 The code makes use of the sample OSUOSL cluster configuration JSON and tries to 
 create graphical visualisations for the cluster graph  made avaialbe by @ramereth, 
 courtsey [OSUOSL](http://github.com/osuosl).
-The initial goal of this is to experiment with Ganeti Cluster Visualization 
-strategies and develop prototypes using HTML5 and Jacascript. 
+The goal of this is project is to experiment with various Ganeti Cluster Visualization 
+strategies that System administrators find useful and develop intuitive prototypes.
 
 The greater goal is to support the [Ganeti Web Manager](https://github.com/osuosl/ganeti_webmgr) 
 project at the [OSUOSL](http://osuosl.org). Visualisation of clusters in the 
