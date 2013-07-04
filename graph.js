@@ -84,6 +84,7 @@ $('#cy').cytoscape({
         'text-outline-color': '#FC6FB1',
         'background-color': '#FC6FB1',
         'color': '#fff',
+        'visibility':'hidden',
       })
     .selector(':selected')
       .css({
@@ -111,7 +112,7 @@ $('#cy').cytoscape({
 
   elements: {
     nodes: [
-      { data: { id: 'node1.example.com', name: 'node1.example.com', weight: 100,},
+      { data: { id: 'node1', name: 'node1.example.com', weight: 100,},
 	      position: pp[0], classes: 'ganeti-node' },
       { data: { id: 'instance55.example.com', name: 'instance55.example.com', weight: 0.05,},
 	      position: rndisc(pp[0],26,30,syscenter), classes: 'ganeti-instance' },
@@ -154,7 +155,7 @@ $('#cy').cytoscape({
       { data: { id: 'instance44.example.com', name: 'instance44.example.com', weight: 0.05,},
 	      position: rndisc(pp[0],26,30,syscenter), classes: 'ganeti-instance' },
 
-      { data: { id: 'node2.example.com', name: 'node2.example.com', weight: 100,},
+      { data: { id: 'node2', name: 'node2.example.com', weight: 100,},
 	      position: pp[1], classes: 'ganeti-node' },
       { data: { id: 'instance19.example.com', name: 'instance19.example.com', weight: 0.05,},
 	      position: rndisc(pp[1],26,30,syscenter), classes: 'ganeti-instance' },
@@ -207,7 +208,7 @@ $('#cy').cytoscape({
       { data: { id: 'instance4.example.com', name: 'instance4.example.com', weight: 0.05,},
 	      position: rndisc(pp[1],26,30,syscenter), classes: 'ganeti-instance' },
 
-      { data: { id: 'node3.example.com', name: 'node3.example.com', weight: 100,},
+      { data: { id: 'node3', name: 'node3.example.com', weight: 100,},
 	      position: pp[2], classes: 'ganeti-node' },
       { data: { id: 'instance16.example.com', name: 'instance16.example.com', weight: 0.05,},
 	      position: rndisc(pp[2],26,30,syscenter), classes: 'ganeti-instance' },
@@ -250,7 +251,7 @@ $('#cy').cytoscape({
       { data: { id: 'instance28.example.com', name: 'instance28.example.com', weight: 0.05,},
 	      position: rndisc(pp[2],26,30,syscenter), classes: 'ganeti-instance' },
 
-      { data: { id: 'node4.example.com', name: 'node4.example.com', weight: 100,},
+      { data: { id: 'node4', name: 'node4.example.com', weight: 100,},
 	      position: pp[3], classes: 'ganeti-node' },
       { data: { id: 'instance43.example.com', name: 'instance43.example.com', weight: 0.05,},
 	      position: rndisc(pp[3],26,30,syscenter), classes: 'ganeti-instance' },
@@ -289,7 +290,7 @@ $('#cy').cytoscape({
       { data: { id: 'instance78.example.com', name: 'instance78.example.com', weight: 0.05,},
 	      position: rndisc(pp[3],26,30,syscenter), classes: 'ganeti-instance' },
 
-      { data: { id: 'node5.example.com', name: 'node5.example.com', weight: 100,},
+      { data: { id: 'node5', name: 'node5.example.com', weight: 100,},
 	      position: pp[4], classes: 'ganeti-node' },
       { data: { id: 'instance72.example.com', name: 'instance72.example.com', weight: 0.05,},
 	      position: rndisc(pp[4],26,30,syscenter), classes: 'ganeti-instance' },
@@ -484,6 +485,9 @@ $('#cy').cytoscape({
   
   ready: function(){
     window.cy = this;
+    cy.$('node.ganeti-node').click(function(){
+        $('node.ganeti-instance').css({visibility:'visible'})
+    });
     
     // giddy up
   }
