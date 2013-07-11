@@ -99,15 +99,21 @@ var gnodes_json = [
 
 CytoNodeList = []
 CytoEdgeList = []
+CytoNodePositions = {} // Stores the rendering position of the Gnodes for each node.
 
+var loop_index = 0;
 gnodes_json.forEach(function(node) {
     gnode = node["fields"]["hostname"]
+    position = pp[loop_index]
+    CytoNodePositions[gnode] = position
 
     // Adding the ganeti nodes to the Cytoscape NodeList
     cytoscape_node_obj =       
       {data: { id: gnode, name: gnode, weight: 100,},
-        position: pp[0], classes:'ganeti-node'};
+        position: position, classes:'ganeti-node'};
     CytoNodeList.push(cytoscape_node_obj);
+
+    loop_index += 1
 });
 
 
@@ -138,7 +144,7 @@ vms_json.forEach(function(vm) {
     // Adding Cytoscape Graph Vertices: Instances:
     cytoscape_node_obj =       
         {data: { id: vm_hostname, name: vm_hostname, weight: 0.05,},
-	      position: rndisc(pp[0],27,31), classes:'ganeti-instance' }
+	      position: rndisc(CytoNodePositions[pnode],27,31), classes:'ganeti-instance' }
     CytoNodeList.push(cytoscape_node_obj);
 
     // Adding Cytoscape Graph Edges: Node-Instance edges.
