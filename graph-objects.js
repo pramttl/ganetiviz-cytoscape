@@ -98,6 +98,8 @@ var gnodes_json = [
 
 
 CytoNodeList = []
+CytoEdgeList = []
+
 gnodes_json.forEach(function(node) {
     gnode = node["fields"]["hostname"]
 
@@ -111,6 +113,8 @@ gnodes_json.forEach(function(node) {
 
 VMGraph = {}
 FailoverLinks = {}
+
+// [vms_json] First Loop
 vms_json.forEach(function(vm) {
     vm_hostname = vm["fields"]["hostname"]
     pnode = vm["fields"]["primary_node"]    // A Ganeti Node
@@ -131,10 +135,27 @@ vms_json.forEach(function(vm) {
         FailoverLinks[pnode] = obj
     }
 
-    // Building the Cytoscape Graph elements.
-    // Graph Nodes - Instances:
+    // Adding Cytoscape Graph Vertices: Instances:
     cytoscape_node_obj =       
         {data: { id: vm_hostname, name: vm_hostname, weight: 0.05,},
 	      position: rndisc(pp[0],27,31), classes:'ganeti-instance' }
     CytoNodeList.push(cytoscape_node_obj);
+
+    // Adding Cytoscape Graph Edges: Node-Instance edges.
+    cytoscape_edge_obj = { data: { source: pnode, target: vm_hostname, color: '#6FFCB1', strength:1 }, classes: 'instance-edge'};
+    CytoEdgeList.push(cytoscape_edge_obj);
+});
+
+
+// [vms_json] Second Loop - Necessry because the FailoverLinks object is created by the First Loop required here.
+vms_json.forEach(function(vm) {
+    vm_hostname = vm["fields"]["hostname"]
+    pnode = vm["fields"]["primary_node"]    // A Ganeti Node
+    snode = vm["fields"]["secondary_node"]  // A Ganeti Node
+
+    // Adding Cytoscape edges between nodes.
+    if (snode != null){
+      cytoscape_edge_obj = { data: { source: pnode, target: snode, color: '#6FB1FC', strength: FailoverLinks[pnode][snode] }};
+      CytoEdgeList.push(cytoscape_edge_obj);
+    }
 });
