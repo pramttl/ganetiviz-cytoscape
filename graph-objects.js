@@ -44,6 +44,15 @@ var vms_json = [
       primary_node: "node3.example.org"
     }
   },
+  {
+    pk: 6,
+    model: "ganeti_web.virtualmachine",
+    fields: {
+      secondary_node: "node4.example.org",
+      hostname: "instance6.example.org",
+      primary_node: "node2.example.org"
+    }
+  },
 ]
 
 // 'g' in gnodes signifies a ganeti node, to avoid the multiple connotations of the word node in this project.
@@ -130,15 +139,17 @@ vms_json.forEach(function(vm) {
     VMGraph[vm_hostname] = [pnode,snode]
 
     // FailoverLinks will contain number of failover possibilities b/n a PNode & an SNode.
-    try {
-      if (snode != null){
-        FailoverLinks[pnode][snode] += 1
+    if (snode != null){
+        if (!FailoverLinks[pnode]){
+            FailoverLinks[pnode] = {}
+        }
+
+        if (!FailoverLinks[pnode][snode]){
+            FailoverLinks[pnode][snode] = 1
+        }
+        else{
+            FailoverLinks[pnode][snode] += 1
       }
-    }
-    catch(exception){
-        obj = {}
-        obj[snode] = 1
-        FailoverLinks[pnode] = obj
     }
 
     // Adding Cytoscape Graph Vertices: Instances:
@@ -153,15 +164,11 @@ vms_json.forEach(function(vm) {
 });
 
 
-// [vms_json] Second Loop - Necessry because the FailoverLinks object is created by the First Loop required here.
-vms_json.forEach(function(vm) {
-    vm_hostname = vm["fields"]["hostname"]
-    pnode = vm["fields"]["primary_node"]    // A Ganeti Node
-    snode = vm["fields"]["secondary_node"]  // A Ganeti Node
-
-    // Adding Cytoscape edges between nodes.
-    if (snode != null){
-      cytoscape_edge_obj = { data: { source: pnode, target: snode, color: '#6FB1FC', strength: FailoverLinks[pnode][snode] }};
-      CytoEdgeList.push(cytoscape_edge_obj);
+// Adding Cytoscape edges between nodes.
+for (sourcenodekey in FailoverLinks) {
+    for (targetnodekey in FailoverLinks[sourcenodekey]){
+        cytoscape_edge_obj = { data: { source: sourcenodekey, target: targetnodekey, 
+                               color: '#6FB1FC', strength: FailoverLinks[sourcenodekey][targetnodekey] }};
+        CytoEdgeList.push(cytoscape_edge_obj);
     }
-});
+};
