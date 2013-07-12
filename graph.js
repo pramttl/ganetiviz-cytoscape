@@ -1,3 +1,84 @@
+/*
+(c) Pranjal Mittal, OSU Open Source Lab
+*/
+
+
+/******* [1] Abstract Graph Manipulation, Creating Appropriate Object Represnetations ***********/
+/**********************************************************************************************/
+
+syscenter = {x:500,y:500} // Center of the whole System
+var pp = polypointscircle(syscenter,200,5)
+
+CytoNodeList = []
+CytoEdgeList = []
+CytoNodePositions = {} // Stores the rendering position of the Gnodes for each node.
+
+var loop_index = 0;
+gnodes_json.forEach(function(node) {
+    gnode = node["fields"]["hostname"]
+    position = pp[loop_index]
+    CytoNodePositions[gnode] = position
+
+    // Adding the ganeti nodes to the Cytoscape NodeList
+    cytoscape_node_obj =       
+      {data: { id: gnode, name: gnode, weight: 100,},
+        position: position, classes:'ganeti-node'};
+    CytoNodeList.push(cytoscape_node_obj);
+
+    loop_index += 1
+});
+
+
+VMGraph = {}
+FailoverLinks = {}
+
+// [vms_json] First Loop
+vms_json.forEach(function(vm) {
+    vm_hostname = vm["fields"]["hostname"]
+    pnode = vm["fields"]["primary_node"]    // A Ganeti Node
+    snode = vm["fields"]["secondary_node"]  // A Ganeti Node
+
+    // A HashMap object that will contain mapping from VM to pnode or snode for fast search.
+    VMGraph[vm_hostname] = [pnode,snode]
+
+    // FailoverLinks will contain number of failover possibilities b/n a PNode & an SNode.
+    if (snode != null){
+        if (!FailoverLinks[pnode]){
+            FailoverLinks[pnode] = {}
+        }
+
+        if (!FailoverLinks[pnode][snode]){
+            FailoverLinks[pnode][snode] = 1
+        }
+        else{
+            FailoverLinks[pnode][snode] += 1
+      }
+    }
+
+    // Adding Cytoscape Graph Vertices: Instances:
+    cytoscape_node_obj =       
+        {data: { id: vm_hostname, name: vm_hostname, weight: 0.05,},
+	      position: rndisc(CytoNodePositions[pnode],27,31), classes:'ganeti-instance' }
+    CytoNodeList.push(cytoscape_node_obj);
+
+    // Adding Cytoscape Graph Edges: Node-Instance edges.
+    cytoscape_edge_obj = { data: { source: pnode, target: vm_hostname, color: '#6FFCB1', strength:1 }, classes: 'instance-edge'};
+    CytoEdgeList.push(cytoscape_edge_obj);
+});
+
+
+// Adding Cytoscape edges between nodes.
+for (sourcenodekey in FailoverLinks) {
+    for (targetnodekey in FailoverLinks[sourcenodekey]){
+        cytoscape_edge_obj = { data: { source: sourcenodekey, target: targetnodekey, 
+                               color: '#6FB1FC', strength: FailoverLinks[sourcenodekey][targetnodekey] }};
+        CytoEdgeList.push(cytoscape_edge_obj);
+    }
+};
+
+
+/******************** [2] Cytoscape Viewport Rendering and Interactivity ***********************/
+/**********************************************************************************************/
 $('#cy').cytoscape({
   showOverlay: false,
 
@@ -5,6 +86,7 @@ $('#cy').cytoscape({
     name: 'preset'
   },
   
+  // Adding style to "cytoscape elements" ie. Nodes & Edges
   style: cytoscape.stylesheet()
     .selector('node.ganeti-node')
       .css({
@@ -67,6 +149,7 @@ $('#cy').cytoscape({
         'text-opacity': 0
       }),
 
+  // Adding elements from abstract structures already created above.
   elements: {
     nodes: CytoNodeList,
     edges: CytoEdgeList,

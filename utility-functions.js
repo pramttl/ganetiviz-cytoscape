@@ -1,9 +1,7 @@
 /*
 Copyright (c): Pranjal Mittal, OSUOSL
 
-(1) A collection of custom useful functions for use in graph-objects.js, graph.js.
-(2) Initalization of some objects useful when generating graph-objects & rendering graph. like - 
-    //syscenter = {x:500,y:500} // Center of the whole System
+(1) A collection of custom useful functions for use in graph.js.
 */
 
 function rbt(a,b){
@@ -55,8 +53,7 @@ function modrndisc(pt,r,R,syscenter){
 
 
 function fqdntoid(fqdn){
+    // To replace "." by "-" in a Fully Qualified Domain Name.
     return fqdn.replace(/\./g,"-")
 }
 
-syscenter = {x:500,y:500} // Center of the whole System
-var pp = polypointscircle(syscenter,200,5)

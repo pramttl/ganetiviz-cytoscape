@@ -1,3 +1,12 @@
+/*
+[TEST FIXTURE DATA]
+
+Contains JSON Graph objects.
+These objects act as test fixtures or placeholders emulating the actual JSON,
+that will be fetched from GWM via AJAX.
+*/
+
+// Object representing a collection of all the Virtual Machines in a cluster.
 var vms_json = [
   {
     pk: 1,
@@ -55,9 +64,10 @@ var vms_json = [
   },
 ]
 
+// Object representing a collection of all the physical Nodes in a cluster.
+var gnodes_json = [
 // 'g' in gnodes signifies a ganeti node, to avoid the multiple connotations of the word node in this project.
 // While most gnodes are covered in the vms_json object; this is needed since there might be some nodes which do not have an instance yet.
-var gnodes_json = [
   {
     pk: 1,
     model: "ganeti_web.node",
@@ -104,71 +114,3 @@ var gnodes_json = [
         }
   },
 ]
-
-
-CytoNodeList = []
-CytoEdgeList = []
-CytoNodePositions = {} // Stores the rendering position of the Gnodes for each node.
-
-var loop_index = 0;
-gnodes_json.forEach(function(node) {
-    gnode = node["fields"]["hostname"]
-    position = pp[loop_index]
-    CytoNodePositions[gnode] = position
-
-    // Adding the ganeti nodes to the Cytoscape NodeList
-    cytoscape_node_obj =       
-      {data: { id: gnode, name: gnode, weight: 100,},
-        position: position, classes:'ganeti-node'};
-    CytoNodeList.push(cytoscape_node_obj);
-
-    loop_index += 1
-});
-
-
-VMGraph = {}
-FailoverLinks = {}
-
-// [vms_json] First Loop
-vms_json.forEach(function(vm) {
-    vm_hostname = vm["fields"]["hostname"]
-    pnode = vm["fields"]["primary_node"]    // A Ganeti Node
-    snode = vm["fields"]["secondary_node"]  // A Ganeti Node
-
-    // A HashMap object that will contain mapping from VM to pnode or snode for fast search.
-    VMGraph[vm_hostname] = [pnode,snode]
-
-    // FailoverLinks will contain number of failover possibilities b/n a PNode & an SNode.
-    if (snode != null){
-        if (!FailoverLinks[pnode]){
-            FailoverLinks[pnode] = {}
-        }
-
-        if (!FailoverLinks[pnode][snode]){
-            FailoverLinks[pnode][snode] = 1
-        }
-        else{
-            FailoverLinks[pnode][snode] += 1
-      }
-    }
-
-    // Adding Cytoscape Graph Vertices: Instances:
-    cytoscape_node_obj =       
-        {data: { id: vm_hostname, name: vm_hostname, weight: 0.05,},
-	      position: rndisc(CytoNodePositions[pnode],27,31), classes:'ganeti-instance' }
-    CytoNodeList.push(cytoscape_node_obj);
-
-    // Adding Cytoscape Graph Edges: Node-Instance edges.
-    cytoscape_edge_obj = { data: { source: pnode, target: vm_hostname, color: '#6FFCB1', strength:1 }, classes: 'instance-edge'};
-    CytoEdgeList.push(cytoscape_edge_obj);
-});
-
-
-// Adding Cytoscape edges between nodes.
-for (sourcenodekey in FailoverLinks) {
-    for (targetnodekey in FailoverLinks[sourcenodekey]){
-        cytoscape_edge_obj = { data: { source: sourcenodekey, target: targetnodekey, 
-                               color: '#6FB1FC', strength: FailoverLinks[sourcenodekey][targetnodekey] }};
-        CytoEdgeList.push(cytoscape_edge_obj);
-    }
-};
