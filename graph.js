@@ -32,14 +32,17 @@ gnodes_json.forEach(function(node) {
 VMGraph = {}
 FailoverLinks = {}
 
-// [vms_json] First Loop
+// [vms_json] A loop over each Virtual Machine object
 vms_json.forEach(function(vm) {
     vm_hostname = vm["fields"]["hostname"]
-    pnode = vm["fields"]["primary_node"]    // A Ganeti Node
-    snode = vm["fields"]["secondary_node"]  // A Ganeti Node
+    pnode = vm["fields"]["primary_node"]    // A Ganeti Node referred ahead as (g)node
+    snode = vm["fields"]["secondary_node"]  // (g)node
 
-    // A HashMap object that will contain mapping from VM to pnode or snode for fast search.
+    // A HashMap object that will contain mapping from VM to pnode or snode for fast search, used during failover-edge highlighting.
     VMGraph[vm_hostname] = [pnode,snode]
+
+    //#TODO Counting number of instances of each (g)node.
+    
 
     // FailoverLinks will contain number of failover possibilities b/n a PNode & an SNode.
     if (snode != null){
@@ -55,19 +58,20 @@ vms_json.forEach(function(vm) {
       }
     }
 
-    // Adding Cytoscape Graph Vertices: Instances:
-    cytoscape_node_obj =       
-        {data: { id: vm_hostname, name: vm_hostname, weight: 0.05,},
-	      position: rndisc(CytoNodePositions[pnode],27,31), classes:'ganeti-instance' }
+    // Adding Cytoscape Graph Vertices representing Instances
+    cytoscape_node_obj =  {
+         data: { id: vm_hostname, name: vm_hostname, weight: 0.05,},
+	       position: rndisc(CytoNodePositions[pnode],27,31), 
+         classes:'ganeti-instance' }
     CytoNodeList.push(cytoscape_node_obj);
 
-    // Adding Cytoscape Graph Edges: Node-Instance edges.
+    // Adding Cytoscape Graph Edges: (g)Node-Instance edges.
     cytoscape_edge_obj = { data: { source: pnode, target: vm_hostname, color: '#6FFCB1', strength:1 }, classes: 'instance-edge'};
     CytoEdgeList.push(cytoscape_edge_obj);
 });
 
 
-// Adding Cytoscape edges between nodes.
+// Adding Cytoscape Graph Edges: (g)Node-(g)Node edges
 for (sourcenodekey in FailoverLinks) {
     for (targetnodekey in FailoverLinks[sourcenodekey]){
         cytoscape_edge_obj = { data: { source: sourcenodekey, target: targetnodekey, 
