@@ -28,21 +28,26 @@ gnodes_json.forEach(function(node) {
     loop_index += 1
 });
 
+VMGraph = {}                // A HashMap object that will contain mapping from VM to pnode or snode for fast search
+FailoverLinks = {}         // FailoverLinks will contain number of failover possibilities b/n a PNode & an SNode.
+NodeInstanceLinks = {}     // HashMap from Node to NUMBER of primary Instances.
 
-VMGraph = {}
-FailoverLinks = {}
-
-// [vms_json] A loop over each Virtual Machine object
+// [vms_json] #1: First loop over each Virtual Machine object
 vms_json.forEach(function(vm) {
     vm_hostname = vm["fields"]["hostname"]
     pnode = vm["fields"]["primary_node"]    // A Ganeti Node referred ahead as (g)node
     snode = vm["fields"]["secondary_node"]  // (g)node
 
-    // A HashMap object that will contain mapping from VM to pnode or snode for fast search, used during failover-edge highlighting.
+    // A HashMap object that will contain mapping from VM to pnode or snode for fast search
     VMGraph[vm_hostname] = [pnode,snode]
 
-    //#TODO Counting number of instances of each (g)node.
-    
+    // Counting number of instances of each (g)node.
+    if (!NodeInstanceLinks[pnode]){
+        NodeInstanceLinks[pnode] = 1
+    }
+    else{
+        NodeInstanceLinks[pnode] += 1
+    }
 
     // FailoverLinks will contain number of failover possibilities b/n a PNode & an SNode.
     if (snode != null){
@@ -57,18 +62,40 @@ vms_json.forEach(function(vm) {
             FailoverLinks[pnode][snode] += 1
       }
     }
+});
+
+// Computing graph rendering positions for VirtualMachines.
+// VM's should lie on a circle around their respective primary node at regular intervals for clean display.
+VMPositions = {}  // A HashMap object defining VM positions for each (g)node.
+for (nodekey in NodeInstanceLinks){
+    N = NodeInstanceLinks[nodekey] 
+    node_position = CytoNodePositions[nodekey] // We are going to generate points around this coordinate lying on a circle.
+    R = 30                                    // Setting R constant for now. #TODO Check optimal value.
+    VMPositions[nodekey] = polypointscircle(center=node_position,R,N)
+}
+
+
+// [vms_json] #2: Second loop over each VM object makes use of objects built in first loop.
+// This is necessary and contents cannot be shifted to 1st loop.
+vms_json.forEach(function(vm) {
+
+    vm_hostname = vm["fields"]["hostname"]
+    pnode = vm["fields"]["primary_node"]    // (g)node
 
     // Adding Cytoscape Graph Vertices representing Instances
     cytoscape_node_obj =  {
          data: { id: vm_hostname, name: vm_hostname, weight: 0.05,},
-	       position: rndisc(CytoNodePositions[pnode],27,31), 
+	       position: VMPositions[pnode].pop(),
          classes:'ganeti-instance' }
     CytoNodeList.push(cytoscape_node_obj);
 
     // Adding Cytoscape Graph Edges: (g)Node-Instance edges.
     cytoscape_edge_obj = { data: { source: pnode, target: vm_hostname, color: '#6FFCB1', strength:1 }, classes: 'instance-edge'};
     CytoEdgeList.push(cytoscape_edge_obj);
+
 });
+//Note: Having 2 similar loop introduces a very small (constant factor) performance overhead, but is logically essential here.
+
 
 
 // Adding Cytoscape Graph Edges: (g)Node-(g)Node edges
