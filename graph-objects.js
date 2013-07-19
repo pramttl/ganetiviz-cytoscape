@@ -114,3 +114,26 @@ var gnodes_json = [
         }
   },
 ]
+
+
+/*
+    // Actually these JSON objects will be fetched via AJAX, something like this:
+
+    $.ajaxSetup({
+        async: false
+    });
+
+    $.getJSON("/ganetiviz/vms/{{ cluster_hostname }}",function( json ) {
+      vms_json = json
+    });
+
+    $.getJSON("/ganetiviz/nodes/{{ cluster_hostname }}",function( json ) {
+      gnodes_json = json
+    });
+
+    $.ajaxSetup({
+        async: true
+    });
+*/
+
+
