@@ -12,6 +12,7 @@ var vms_json = [
     pk: 1,
     model: "ganeti_web.virtualmachine",
     fields: {
+      status: "running",
       secondary_node: null,
       hostname: "instance1.example.org",
       primary_node: "node1.example.org"
@@ -21,6 +22,7 @@ var vms_json = [
     pk: 2,
     model: "ganeti_web.virtualmachine",
     fields: {
+      status: "running",
       secondary_node: "node3.example.org",
       hostname: "instance2.example.org",
       primary_node: "node2.example.org"
@@ -30,6 +32,7 @@ var vms_json = [
     pk: 3,
     model: "ganeti_web.virtualmachine",
     fields: {
+      status: "running",
       secondary_node: "node2.example.org",
       hostname: "instance3.example.org",
       primary_node: "node3.example.org"
@@ -48,6 +51,7 @@ var vms_json = [
     pk: 5,
     model: "ganeti_web.virtualmachine",
     fields: {
+      status: "running",
       secondary_node: "node2.example.org",
       hostname: "instance5.example.org",
       primary_node: "node3.example.org"
@@ -57,6 +61,7 @@ var vms_json = [
     pk: 6,
     model: "ganeti_web.virtualmachine",
     fields: {
+      status: "ADMIN_down",
       secondary_node: "node4.example.org",
       hostname: "instance6.example.org",
       primary_node: "node2.example.org"
