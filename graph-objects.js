@@ -78,6 +78,7 @@ var gnodes_json = [
     model: "ganeti_web.node",
       fields: {
         ram_free: 408,
+        offline: false,
         hostname: "node1.example.org",
         ram_total: 496
       }
@@ -87,6 +88,7 @@ var gnodes_json = [
       model: "ganeti_web.node",
         fields: {
           ram_free: 289,
+          offline: false,
           hostname: "node2.example.org",
           ram_total: 496
         }
@@ -96,6 +98,7 @@ var gnodes_json = [
       model: "ganeti_web.node",
         fields: {
           ram_free: 301,
+          offline: false,
           hostname: "node3.example.org",
           ram_total: 496
         }
@@ -114,6 +117,7 @@ var gnodes_json = [
       model: "ganeti_web.node",
         fields: {
           ram_free: 400,
+          offline: true,
           hostname: "node5.example.org",
           ram_total: 496
         }
