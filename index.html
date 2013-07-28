@@ -10,6 +10,11 @@
 </head>
 <body>
   <input type="text" id="vertexInput" name="vertex" onkeypress="vertexSearch(event)""></input>
+  <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz-cytoscape'"> </input>
+
+  <!-- ## The code ahead will be used in the actual ganetiviz app -->
+  <!-- <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz/refresh/{{ cluster_hostname }}'"> </input> -->
+
   <hr/>
   <div id="cy"></div>
   <script src="utility-functions.js"></script>
