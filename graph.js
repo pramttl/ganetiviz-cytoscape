@@ -97,13 +97,16 @@ for (nodekey in NodeInstanceLinks){
 
 
 /*
-[1.4][vms_json_2]:: Second loop over each VM object makes use of objects built in first loop.
+[1.4][vms_json_2]:: Second loop over sorted VM object makes use of objects built in first loop.
 - This is necessary and contents cannot be shifted to 1st loop.
 - Adds all GanetiInstance objects to "CytoNodeList", making it an exhaustive list of vertice objects.
 - Adds only the GanetiNode-Instance-Edges to "CytoEdgeList", 
   (Node-Node edges still need to be added)
+- Beautiful Idea: Sorting out instances around every node, boils down to sorting all instances first
+  and then adding them around whichever node it belongs to sequentially. :)
 */
-vms_json.forEach(function(vm) {
+vms_json_sorted = vms_json.sort(function(a,b) {return a.fields.hostname - b.fields.hostname });
+vms_json_sorted.forEach(function(vm) {
 
     vm_hostname = vm["fields"]["hostname"]
     pnode = vm["fields"]["primary_node"]    // (g)node
