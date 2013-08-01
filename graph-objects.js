@@ -62,7 +62,7 @@ var vms_json = [
         pk: 6,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_down",
             secondary_node: "node2.example.com",
             hostname: "instance103.example.com",
             primary_node: "node5.example.com"
@@ -112,7 +112,7 @@ var vms_json = [
         pk: 11,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance108.example.com",
             primary_node: "node5.example.com"
@@ -142,7 +142,7 @@ var vms_json = [
         pk: 14,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node4.example.com",
             hostname: "instance110.example.com",
             primary_node: "node5.example.com"
@@ -182,7 +182,7 @@ var vms_json = [
         pk: 18,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node3.example.com",
             hostname: "instance15.example.com",
             primary_node: "node5.example.com"
@@ -242,7 +242,7 @@ var vms_json = [
         pk: 24,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: null,
             hostname: "instance20.example.com",
             primary_node: "node5.example.com"
@@ -342,7 +342,7 @@ var vms_json = [
         pk: 34,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance3.example.com",
             primary_node: "node5.example.com"
@@ -482,7 +482,7 @@ var vms_json = [
         pk: 48,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance42.example.com",
             primary_node: "node5.example.com"
@@ -532,7 +532,7 @@ var vms_json = [
         pk: 53,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node1.example.com",
             hostname: "instance47.example.com",
             primary_node: "node5.example.com"
@@ -562,7 +562,7 @@ var vms_json = [
         pk: 56,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node3.example.com",
             hostname: "instance5.example.com",
             primary_node: "node5.example.com"
@@ -662,7 +662,7 @@ var vms_json = [
         pk: 66,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance59.example.com",
             primary_node: "node5.example.com"
@@ -672,7 +672,7 @@ var vms_json = [
         pk: 67,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance6.example.com",
             primary_node: "node5.example.com"
@@ -722,7 +722,7 @@ var vms_json = [
         pk: 72,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: null,
             hostname: "instance64.example.com",
             primary_node: "node5.example.com"
@@ -762,7 +762,7 @@ var vms_json = [
         pk: 76,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: null,
             hostname: "instance68.example.com",
             primary_node: "node5.example.com"
@@ -772,7 +772,7 @@ var vms_json = [
         pk: 77,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: null,
             hostname: "instance69.example.com",
             primary_node: "node5.example.com"
@@ -782,7 +782,7 @@ var vms_json = [
         pk: 78,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node1.example.com",
             hostname: "instance7.example.com",
             primary_node: "node2.example.com"
@@ -812,7 +812,7 @@ var vms_json = [
         pk: 81,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node1.example.com",
             hostname: "instance72.example.com",
             primary_node: "node5.example.com"
@@ -822,7 +822,7 @@ var vms_json = [
         pk: 82,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance73.example.com",
             primary_node: "node5.example.com"
@@ -862,7 +862,7 @@ var vms_json = [
         pk: 86,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance77.example.com",
             primary_node: "node5.example.com"
@@ -882,7 +882,7 @@ var vms_json = [
         pk: 88,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node1.example.com",
             hostname: "instance79.example.com",
             primary_node: "node5.example.com"
@@ -942,7 +942,7 @@ var vms_json = [
         pk: 94,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance84.example.com",
             primary_node: "node5.example.com"
@@ -962,7 +962,7 @@ var vms_json = [
         pk: 96,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance86.example.com",
             primary_node: "node5.example.com"
@@ -982,7 +982,7 @@ var vms_json = [
         pk: 98,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance88.example.com",
             primary_node: "node5.example.com"
@@ -1002,7 +1002,7 @@ var vms_json = [
         pk: 100,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node1.example.com",
             hostname: "instance9.example.com",
             primary_node: "node5.example.com"
@@ -1022,7 +1022,7 @@ var vms_json = [
         pk: 102,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node4.example.com",
             hostname: "instance91.example.com",
             primary_node: "node5.example.com"
@@ -1032,7 +1032,7 @@ var vms_json = [
         pk: 103,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: null,
             hostname: "instance92.example.com",
             primary_node: "node5.example.com"
@@ -1042,7 +1042,7 @@ var vms_json = [
         pk: 104,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node4.example.com",
             hostname: "instance93.example.com",
             primary_node: "node5.example.com"
@@ -1072,7 +1072,7 @@ var vms_json = [
         pk: 107,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node3.example.com",
             hostname: "instance96.example.com",
             primary_node: "node5.example.com"
@@ -1092,7 +1092,7 @@ var vms_json = [
         pk: 109,
         model: "ganeti_web.virtualmachine",
         fields: {
-            status: "running",
+            status: "ERROR_Down",
             secondary_node: "node2.example.com",
             hostname: "instance98.example.com",
             primary_node: "node5.example.com"
