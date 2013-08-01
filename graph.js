@@ -91,7 +91,7 @@ VMPositions = {}  // A HashMap object defining VM positions for each (g)node.
 for (nodekey in NodeInstanceLinks){
     N = NodeInstanceLinks[nodekey] 
     node_position = CytoNodePositions[nodekey]    // We are going to generate points around this coordinate lying on a circle.
-    R = 30                                       // Setting R constant for now. #TODO Check optimal value.
+    R = 50                                       // Setting R constant for now. #TODO Check optimal value.
     VMPositions[nodekey] = polypointscircle(center=node_position,R,N)
 }
 
@@ -176,8 +176,8 @@ $('#cy').cytoscape({
         'width': 20,
         'content': 'data(name)',
         'text-valign': 'center',
-        'text-outline-width': 0.5,
-        'font-size':3,
+        'text-outline-width': 0.6,
+        'font-size':5,
         'text-outline-color': 'data(color)',
         'background-color': 'data(color)',
         'color': '#fff',
@@ -188,7 +188,7 @@ $('#cy').cytoscape({
     .selector('node.ganeti-instance.highlighted')
       .css({
         'visibility':'visible',
-        'text-outline-color': 'brown',
+        //'text-outline-color': 'green',
         'background-color': 'white',
       })
     .selector(':selected')
