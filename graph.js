@@ -138,7 +138,7 @@ vms_json_sorted.forEach(function(vm) {
 for (sourcenodekey in FailoverLinks) {
     for (targetnodekey in FailoverLinks[sourcenodekey]){
         cytoscape_edge_obj = { data: { source: sourcenodekey, target: targetnodekey, 
-                               color: '#6FB1FC', strength: FailoverLinks[sourcenodekey][targetnodekey] }};
+                               color: '#6FB1FC', strength: FailoverLinks[sourcenodekey][targetnodekey] }, classes: 'node-edge'};
         CytoEdgeList.push(cytoscape_edge_obj);
     }
 };
@@ -230,19 +230,28 @@ $('#cy').cytoscape({
     window.cy = this;
 
     // To make Primary Instances corresponding to a Ganeti-Node visible.
-    cy.$('node.ganeti-node').click(function(){
+    cy.$('node.ganeti-node').mouseup(function(){
         // First hide any of the instance-vertices that are already visible.
-        cy.$(".ganeti-instance").css({visibility:"hidden"});
+        //cy.$(".ganeti-instance").css({visibility:"hidden"});
+
+        console.log(this.id())
+
         // Now, show the instance vertices corresponding to this node (being clicked)
         var branches_selector = "edge[source='" + this.id() + "']";
         // Make target of each branch ending at an instance vertice visible.
         cy.$(branches_selector).filter(".instance-edge").each(function(i, branch){
-            branch.target()[0].css({visibility:'visible'});
+            instance_element = branch.target()[0]
+            //console.log(instance_element['_private']['data']['name'])
+            if (instance_element.css('visibility') == 'visible'){
+                instance_element.css({visibility:'hidden'})
+            }else if (instance_element.css('visibility') == 'hidden'){
+                instance_element.css({visibility:'visible'})
+            }
         });
     });
 
     // Highlights the edge indicating failover direction.
-    cy.$('node.ganeti-instance').mousedown(function(){
+    cy.$('node.ganeti-instance').click(function(){
         cy.$('edge').toggleClass("active",false);
         pnode = VMGraph[this.id()][0];
         snode = VMGraph[this.id()][1];
@@ -254,6 +263,44 @@ $('#cy').cytoscape({
 
   }
 });
+
+
+// Panning by pressing arrow keys
+$(document).keydown(function(e){
+    if (e.keyCode == 37) { 
+        // go left
+        cy.panBy({
+            x: -50,
+            y: 0 
+        });
+       return false;
+    }
+    if (e.keyCode == 39) { 
+        // go right
+        cy.panBy({
+            x: 50,
+            y: 0 
+        });
+       return false;
+    }
+    if (e.keyCode == 38) { 
+        // go up
+        cy.panBy({
+            x: 0,
+            y: -50 
+        });
+       return false;
+    }
+    if (e.keyCode == 40) { 
+        // go down
+        cy.panBy({
+            x: 0,
+            y: 50 
+        });
+       return false;
+    }
+});
+
 
 // InputBox Instance-Node Search Feature.
 function vertexSearch(e) {
@@ -272,14 +319,4 @@ function vertexSearch(e) {
     }
 }
 
-// Panning by pressing arrow keys (Work in progress)
-/*
-$("#cy").keypress(function (event) {
-  // handle cursor keys
-  if (event.keyCode == 37) {
-    // go left
-  } else if (event.keyCode == 39) {
-    // go right
-  }
-});
-*/
+
