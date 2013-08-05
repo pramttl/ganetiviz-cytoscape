@@ -54,6 +54,9 @@ function modrndisc(pt,r,R,syscenter){
 
 
 function fqdntoid(fqdn){
+    if (fqdn == null){
+        return null
+    }
     // To replace "." by "-" in a Fully Qualified Domain Name.
     return fqdn.replace(/\./g,"-")
 }

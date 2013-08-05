@@ -111,6 +111,7 @@ vms_json_sorted.forEach(function(vm) {
 
     vm_hostname = vm["fields"]["hostname"]
     pnode = vm["fields"]["primary_node"]    // (g)node
+    snode = vm["fields"]["secondary_node"]
     vm_status = vm["fields"]["status"]
 
     // Assigning a color to instances as per status. green for "running" instance, red for the rest.
@@ -236,7 +237,7 @@ $('#cy').cytoscape({
 
     cy.$('node.ganeti-node').click(function(){
         class_string = '.pnode-' + fqdntoid(this.id())
-        console.log(class_string)
+        //console.log(class_string)
 
         // Collection of instances attached to the node clicked upon.
         instance_collection = cy.$(class_string)
@@ -289,6 +290,8 @@ $('#cy').cytoscape({
 
 // Panning by pressing arrow keys
 $(document).keydown(function(e){
+    console.log(e.keyCode)
+
     if (e.keyCode == 37) { 
         // go left
         cy.panBy({
@@ -321,6 +324,21 @@ $(document).keydown(function(e){
         });
        return false;
     }
+
+    // Letter 's' is pressed
+    if (e.keyCode == 83) { 
+        ele = cy.$(':selected')[0]
+        if (ele != null && ele['_private']['classes']['ganeti-node'] == true){
+            cy.$('.ganeti-instance').css({'visibility':'hidden'})
+            snode = ele['_private']['data']['id']
+            sec_instances_selector = '.snode-' + fqdntoid(snode)
+            sec_instances = cy.$(sec_instances_selector)
+            console.log(sec_instances_selector)
+            sec_instances.css({'visibility':'visible'})
+        }
+       return false;
+    }
+
 });
 
 
