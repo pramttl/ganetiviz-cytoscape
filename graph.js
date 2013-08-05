@@ -290,7 +290,7 @@ $('#cy').cytoscape({
 
 // Panning by pressing arrow keys
 $(document).keydown(function(e){
-    console.log(e.keyCode)
+    //console.log(e.keyCode)
 
     if (e.keyCode == 37) { 
         // go left
@@ -333,7 +333,7 @@ $(document).keydown(function(e){
             snode = ele['_private']['data']['id']
             sec_instances_selector = '.snode-' + fqdntoid(snode)
             sec_instances = cy.$(sec_instances_selector)
-            console.log(sec_instances_selector)
+            //console.log(sec_instances_selector)
             sec_instances.css({'visibility':'visible'})
             //sec_instances.toggleClass('highlighted-sinstances',true)
         }
@@ -353,7 +353,7 @@ function vertexSearch(e) {
     if (e.keyCode == 13) {
         text = $('#vertexInput').val() // get the current value of the input field.
         var node_selector = "node[name ^='" + text + "']";
-        console.log(node_selector);
+        //console.log(node_selector);
         cy_selected_instance = cy.$(node_selector)
         if (cy_selected_instance){
             // Un-highlight all the instances first.
