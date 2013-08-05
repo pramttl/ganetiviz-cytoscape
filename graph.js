@@ -325,7 +325,7 @@ $(document).keydown(function(e){
        return false;
     }
 
-    // Letter 's' is pressed
+    // Character 's' is pressed == All the secondary instances corresponding to the highlighted node pop up.
     if (e.keyCode == 83) { 
         ele = cy.$(':selected')[0]
         if (ele != null && ele['_private']['classes']['ganeti-node'] == true){
@@ -335,8 +335,14 @@ $(document).keydown(function(e){
             sec_instances = cy.$(sec_instances_selector)
             console.log(sec_instances_selector)
             sec_instances.css({'visibility':'visible'})
+            //sec_instances.toggleClass('highlighted-sinstances',true)
         }
        return false;
+    }
+
+    // Character 'h' is pressed == All the instances are hidden.
+    if (e.keyCode == 72) { 
+        cy.$('.ganeti-instance').css({'visibility':'hidden'})
     }
 
 });
