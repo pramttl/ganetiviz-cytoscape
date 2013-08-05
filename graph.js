@@ -35,6 +35,7 @@ gnodes_json.forEach(function(node) {
         gnode_color = '#DD2222'
     }
 
+
     // Adding the (g)nodes ie. Ganeti Nodes to the Cytoscape NodeList
     cytoscape_node_obj =       
       {data: { id: gnode, name: gnode, weight: 100,color:gnode_color},
@@ -118,11 +119,14 @@ vms_json_sorted.forEach(function(vm) {
         vm_color = '#00CC00'
     }
 
+    // Adding classes to each instance vertice that make its selection convenient.
+    instance_classes_string = 'ganeti-instance ' + 'pnode-' + fqdntoid(pnode) + ' snode-' + fqdntoid(snode)
+
     // Adding Cytoscape Graph Vertices representing Instances
     cytoscape_node_obj =  {
          data: { id: vm_hostname, name: vm_hostname, weight: 0.05,color: vm_color},
 	       position: VMPositions[pnode].pop(),
-         classes:'ganeti-instance' }
+         classes:instance_classes_string }
     CytoNodeList.push(cytoscape_node_obj);
 
     // Adding Cytoscape Graph Edges: (g)Node-Instance edges.
@@ -229,8 +233,25 @@ $('#cy').cytoscape({
   ready: function(){
     window.cy = this;
 
+
+    cy.$('node.ganeti-node').click(function(){
+        class_string = '.pnode-' + fqdntoid(this.id())
+        console.log(class_string)
+
+        // Collection of instances attached to the node clicked upon.
+        instance_collection = cy.$(class_string)
+
+        // If the set of primary instances around this node is already visible then hide them, else show them.
+        if (instance_collection.css('visibility') == 'visible'){
+            instance_collection.css({visibility:'hidden'})
+        }else {
+            instance_collection.css({visibility:'visible'})
+        }
+    });
+
+/*
     // To make Primary Instances corresponding to a Ganeti-Node visible.
-    cy.$('node.ganeti-node').mouseup(function(){
+    cy.$('node.ganeti-node').click(function(){
         // First hide any of the instance-vertices that are already visible.
         //cy.$(".ganeti-instance").css({visibility:"hidden"});
 
@@ -249,6 +270,7 @@ $('#cy').cytoscape({
             }
         });
     });
+*/
 
     // Highlights the edge indicating failover direction.
     cy.$('node.ganeti-instance').click(function(){
@@ -270,7 +292,7 @@ $(document).keydown(function(e){
     if (e.keyCode == 37) { 
         // go left
         cy.panBy({
-            x: -50,
+            x: -25,
             y: 0 
         });
        return false;
@@ -278,7 +300,7 @@ $(document).keydown(function(e){
     if (e.keyCode == 39) { 
         // go right
         cy.panBy({
-            x: 50,
+            x: 25,
             y: 0 
         });
        return false;
@@ -287,7 +309,7 @@ $(document).keydown(function(e){
         // go up
         cy.panBy({
             x: 0,
-            y: -50 
+            y: -25 
         });
        return false;
     }
@@ -295,7 +317,7 @@ $(document).keydown(function(e){
         // go down
         cy.panBy({
             x: 0,
-            y: 50 
+            y: 25 
         });
        return false;
     }
