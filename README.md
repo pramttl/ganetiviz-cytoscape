@@ -39,9 +39,14 @@ This illustrates some visualization strategies of a ganeti cluster network.
 * Edge thickness between the nodes gives and idea of the total number of failover
   possibilities existing between two nodes.
 * Clicking on a Node causes it to show all the "Instances" attached to it. (Primary Instances)
+* Instances "red" in color are not "running" and might require a failover.
 * Mousedown on an instance highlights the corresponding failover edge
+* Instance Lookup box provided on top-left. Type in a few characters and all matching instances are highlihted.
 * Long-click & hold the graph at any point and pan it in any direction to shift the whole graph object.
 * Zoom In - Zoom Out using mouse scroll in any region by placing mouse-pointer there first.
+* Pan by using arrow keys, or use your mouse: longclick-hold-move
+* Select any node ans press the character "s" to see all the secondary instances for a given node.
+* Press the character "h" to hide all the visible instances.
 
 
 # Copyright
