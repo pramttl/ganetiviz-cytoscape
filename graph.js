@@ -309,7 +309,7 @@ function vertexSearch(e) {
 
 // Panning by pressing arrow keys
 $(document).keydown(function(e){
-    console.log(e.keyCode)
+    //console.log(e.keyCode)
 
     if (e.keyCode == 37) { 
         // go left
@@ -344,8 +344,8 @@ $(document).keydown(function(e){
        return false;
     }
 
-    // Character 'h' is pressed == All the instances are hidden.
-    if (e.keyCode == 72) { 
+    // Character 'c' is pressed == All the visible instances are cleared. (Actually hidden)
+    if (e.keyCode == 67) { 
         cy.$('.ganeti-instance').css({'visibility':'hidden'})
     }
 
