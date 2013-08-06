@@ -39,7 +39,7 @@ gnodes_json.forEach(function(node) {
     // Adding the (g)nodes ie. Ganeti Nodes to the Cytoscape NodeList
     cytoscape_node_obj =       
       {data: { id: gnode, name: gnode, weight: 100,color:gnode_color},
-        position: position, classes:'ganeti-node'};
+        position: position, classes:'ganeti-node', locked: true};
     CytoNodeList.push(cytoscape_node_obj);
 
     loop_index += 1
@@ -234,22 +234,6 @@ $('#cy').cytoscape({
   ready: function(){
     window.cy = this;
 
-
-    cy.$('node.ganeti-node').click(function(){
-        class_string = '.pnode-' + fqdntoid(this.id())
-        //console.log(class_string)
-
-        // Collection of instances attached to the node clicked upon.
-        instance_collection = cy.$(class_string)
-
-        // If the set of primary instances around this node is already visible then hide them, else show them.
-        if (instance_collection.css('visibility') == 'visible'){
-            instance_collection.css({visibility:'hidden'})
-        }else {
-            instance_collection.css({visibility:'visible'})
-        }
-    });
-
 /*
     // To make Primary Instances corresponding to a Ganeti-Node visible.
     cy.$('node.ganeti-node').click(function(){
@@ -273,6 +257,23 @@ $('#cy').cytoscape({
     });
 */
 
+    cy.$('node.ganeti-node').mousedown(function(){
+        class_string = '.pnode-' + fqdntoid(this.id())
+        //console.log(class_string)
+
+        // Collection of instances attached to the node clicked upon.
+        primary_instances = cy.$(class_string)
+
+        //// Primary Instances around this node are shown.
+        //primary_instances.css({visibility:'visible'})
+        // If the set of primary instances around this node is already visible then hide them, else show them.
+        if (primary_instances.css('visibility') == 'visible'){
+            primary_instances.css({visibility:'hidden'})
+        }else {
+            primary_instances.css({visibility:'visible'})
+        }
+    });
+
     // Highlights the edge indicating failover direction.
     cy.$('node.ganeti-instance').click(function(){
         cy.$('edge').toggleClass("active",false);
@@ -288,9 +289,27 @@ $('#cy').cytoscape({
 });
 
 
+// InputBox Instance-Node Search Feature.
+function vertexSearch(e) {
+    if (e.keyCode == 13) {
+        text = $('#vertexInput').val() // get the current value of the input field.
+        var node_selector = "node[name ^='" + text + "']";
+        //console.log(node_selector);
+        cy_selected_instance = cy.$(node_selector)
+        if (cy_selected_instance){
+            // Un-highlight all the instances first.
+            cy.$(".ganeti-instance").toggleClass("highlighted",false)
+            //cy_selected_instance.toggleClass("active",true)
+            cy_selected_instance.addClass("highlighted")
+            cy_selected_instance.css({'visibility':'visible',})
+        }
+    }
+}
+
+
 // Panning by pressing arrow keys
 $(document).keydown(function(e){
-    //console.log(e.keyCode)
+    console.log(e.keyCode)
 
     if (e.keyCode == 37) { 
         // go left
@@ -325,6 +344,11 @@ $(document).keydown(function(e){
        return false;
     }
 
+    // Character 'h' is pressed == All the instances are hidden.
+    if (e.keyCode == 72) { 
+        cy.$('.ganeti-instance').css({'visibility':'hidden'})
+    }
+
     // Character 's' is pressed == All the secondary instances corresponding to the highlighted node pop up.
     if (e.keyCode == 83) { 
         ele = cy.$(':selected')[0]
@@ -340,29 +364,7 @@ $(document).keydown(function(e){
        return false;
     }
 
-    // Character 'h' is pressed == All the instances are hidden.
-    if (e.keyCode == 72) { 
-        cy.$('.ganeti-instance').css({'visibility':'hidden'})
-    }
-
 });
 
-
-// InputBox Instance-Node Search Feature.
-function vertexSearch(e) {
-    if (e.keyCode == 13) {
-        text = $('#vertexInput').val() // get the current value of the input field.
-        var node_selector = "node[name ^='" + text + "']";
-        //console.log(node_selector);
-        cy_selected_instance = cy.$(node_selector)
-        if (cy_selected_instance){
-            // Un-highlight all the instances first.
-            cy.$(".ganeti-instance").toggleClass("highlighted",false)
-            //cy_selected_instance.toggleClass("active",true)
-            cy_selected_instance.addClass("highlighted")
-            cy_selected_instance.css({'visibility':'visible',})
-        }
-    }
-}
 
 
