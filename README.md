@@ -32,8 +32,10 @@ like Apache, Nginx,etc.
 
 This illustrates some visualization strategies of a ganeti cluster network.
 
+### Features
+
 * Nodes are represented as circles, which can host a number of primary instances, 
-  and backup data for instances hosted on other secondary nodes.
+  and mirror data for instances hosted on other secondary nodes.
 * Any node can play the role of both a primary node or a secondary node.
 * Edges between nodes show the direction of failover possibility between two nodes.
 * Edge thickness between the nodes gives and idea of the total number of failover
@@ -42,11 +44,16 @@ This illustrates some visualization strategies of a ganeti cluster network.
 * Instances "red" in color are not "running" and might require a failover.
 * Mousedown on an instance highlights the corresponding failover edge
 * Instance Lookup box provided on top-left. Type in a few characters and all matching instances are highlihted.
-* Long-click & hold the graph at any point and pan it in any direction to shift the whole graph object.
 * Zoom In - Zoom Out using mouse scroll in any region by placing mouse-pointer there first.
-* Pan by using arrow keys, or use your mouse: longclick-hold-move
+* Long-click & hold the graph at any point and pan it in any direction to shift the whole graph object.
+* Pan by using arrow keys, or use the previous mouse method: longclick-hold-move
 * Select any node ans press the character "s" to see all the secondary instances for a given node.
-* Press the character "h" to hide all the visible instances.
+* Press the character "c" at any time to clear (actually hide) all the visible instances.
+
+### Todo/Upcoming features:
+* Pressing character 'h' for help.
+* Better instance arrangement or layout.
+* Less subtle, more convenient panning
 
 
 # Copyright
