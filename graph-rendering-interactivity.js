@@ -6,6 +6,8 @@ All events for graph interactivity are handled in this file.
 */
 
 
+HELP_MODE = false;
+
 /******************** [2] Cytoscape Viewport Rendering and Interactivity ***********************/
 /**********************************************************************************************/
 $('#cy').cytoscape({
@@ -221,6 +223,19 @@ $(document).keydown(function(e){
        return false;
     }
 
+
+    if (e.keyCode == 72) { 
+        if (HELP_MODE == false){
+            HELP_MODE = true
+            console.log("Help Mode switched ON")
+            // $("#cy").css({'width': '70%', })
+            $("#overlay-help").css({'visibility':'visible',})
+        } else {
+            HELP_MODE = false
+            $("#overlay-help").css({'visibility':'hidden',})
+            // $("#cy").css({ 'width': '100%'})
+        }
+    }
 });
 
 

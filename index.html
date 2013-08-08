@@ -9,14 +9,38 @@
   <link rel="stylesheet" type="text/css" media="screen" href="css/graph.css" />
 </head>
 <body>
-  <input type="text" id="vertexInput" name="vertex" onkeypress="vertexSearch(event)""></input>
-  <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz-cytoscape'"> </input>
+  <div>
+    <input type="text" id="vertexInput" name="vertex" onkeypress="vertexSearch(event)" placeholder="Instance Lookup Box"></input>
+    <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz-cytoscape'"> </input>
+    <div style="float:right"> Press 'h' for help..  </div>
+  </div>
 
   <!-- ## The code ahead will be used in the actual ganetiviz app -->
   <!-- <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz/refresh/{{ cluster_hostname }}'"> </input> -->
 
   <hr/>
   <div id="cy"></div>
+  <div id="overlay-help"> <br> <b> Help Active </b> </br>
+    <ul>
+    <li> Press 'h' again to toggle </li>
+    <li> Pan the graph - Arrow Keys </li>
+    <li> Zoom In/ Out - Scroll <br/>
+        (mouse pointer at focus point) </li>
+    <li> Click Node to view primary instances </li>
+    <li> Click again to hide primary instances </li>
+    <li> Press 's' to view secondary instances for selected node </li>
+    <li> Click "Refresh Cluster" to sync map with ganeti </li>
+    <li> Color Codes: 
+      <ul> 
+        <li>  Offline Node: <font color="#DD2222"> Red </font>  </li>
+        <li>  Running Nodes: <font color="#6FB1FC"> Blue </font> </li>
+        <li>  Active Instances : <font color="#00CC00"> Green </font> </li>
+        <li>  Active Instances: <font color="#AA0000"> Red </font>  </li>
+      </ul>
+    </li>
+    </ul>
+  </div>
+
   <script src="utility-functions.js"></script>
   <script src="graph-objects.js"></script>
   <script src="graph-abstract-modelling.js"></script>

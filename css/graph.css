@@ -4,8 +4,21 @@ body {
 
 #cy {
   height: 90%;
-  width: 100%;
+  width: 98%;
   position: absolute;
   left: 0;
   top: 20px;
+  z-index: -2;
+}
+
+
+#overlay-help {
+  visibility: hidden;
+  position: absolute;
+  top: 45px;
+  right: 0px;
+  height: 100%;
+  width: 25%;
+  z-index: -1;
+  background: #FFEBCD;
 }
