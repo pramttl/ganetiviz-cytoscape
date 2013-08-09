@@ -9,17 +9,16 @@
   <link rel="stylesheet" type="text/css" media="screen" href="css/graph.css" />
 </head>
 <body>
-  <div>
-    <input type="text" id="vertexInput" name="vertex" onkeypress="vertexSearch(event)" placeholder="Instance Lookup Box"></input>
-    <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz-cytoscape'"> </input>
-    <div style="float:right"> Press 'h' for help..  </div>
-  </div>
-
+<div>
+    <!--input type="text" id="instancelookup" name="vertex" onkeypress="vertexSearch(event)" placeholder="Instance Lookup Box"></input-->
+    <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz-cytoscape'">
+    <div style="float:left"> Press 'h' for help..  </div>
+</div>
   <!-- ## The code ahead will be used in the actual ganetiviz app -->
   <!-- <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz/refresh/{{ cluster_hostname }}'"> </input> -->
 
-  <hr/>
   <div id="cy"></div>
+  <input id="instancelookup-div" placeholder="Filter instances by name">
   <div id="overlay-help"> <br> <b> Help Active </b> </br>
     <ul>
     <li> Press 'h' again to toggle </li>

@@ -22,3 +22,16 @@ body {
   z-index: -1;
   background: #FFEBCD;
 }
+
+#instancelookup-div {
+  visibility: visible;
+  position: absolute;
+  max-height:1em; 
+  top: 10px;
+  left: 43%;
+  height: 3%;
+  width: 14%;
+  z-index: -2;
+  background: #FFEBCD;
+  overflow: hidden;
+}
