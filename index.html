@@ -11,7 +11,7 @@
 <body>
 <div>
     <!--input type="text" id="instancelookup" name="vertex" onkeypress="vertexSearch(event)" placeholder="Instance Lookup Box"></input-->
-    <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz-cytoscape'">
+    <input id="refresh-button" type="button" value="Refresh Cluster" style="float:right">
     <div style="float:left"> Press 'h' for help..  </div>
 </div>
   <!-- ## The code ahead will be used in the actual ganetiviz app -->
@@ -44,5 +44,19 @@
   <script src="graph-objects.js"></script>
   <script src="graph-abstract-modelling.js"></script>
   <script src="graph-rendering-interactivity.js"></script>
+
+  <script>
+      buildabstractgraph()
+      renderinteractivegraph()
+
+    // If the refresh-button is clicked in reality we will fetch cluster data again and redraw the graph.
+    $("#refresh-button").click(function(e){
+        // $.get("/cluster/{{ cluster_slug }}/refresh/", function() {
+        //    fetchclusterdata()
+            buildabstractgraph()
+            renderinteractivegraph()
+        //});
+    })
+  </script>
 </body>
 </html>
