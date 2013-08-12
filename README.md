@@ -49,9 +49,11 @@ This illustrates some visualization strategies of a ganeti cluster network.
 * Pan by using arrow keys, or use the previous mouse method: longclick-hold-move
 * Select any node ans press the character "s" to see all the secondary instances for a given node.
 * Press the character "c" at any time to clear (actually hide) all the visible instances.
+* Press the character 'r' to reset the whole graph orientation as in the beginning.
+* Most of this important information is available easily pressing character the 'h' ie. help.
 
 ### Todo/Upcoming features:
-* Pressing character 'h' for help.
+
 * Better instance arrangement or layout.
 * Less subtle, more convenient panning
 
