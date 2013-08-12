@@ -20,15 +20,24 @@
   <div id="cy"></div>
   <input id="instancelookup-div" placeholder="Filter instances by name">
   <div id="overlay-help"> <br> <b> Help Active </b> </br>
+  Press 'h' again to toggle <br/> <br/>
+
+    <b> Usage/Shortcuts</b>
     <ul>
-    <li> Press 'h' again to toggle </li>
     <li> Pan the graph - Arrow Keys </li>
     <li> Zoom In/ Out - Scroll <br/>
         (mouse pointer at focus point) </li>
     <li> Click Node to view primary instances </li>
     <li> Click again to hide primary instances </li>
     <li> Press 's' to view secondary instances for selected node </li>
+    <li> Press 'r' to reset the orientation of the graph </li>
     <li> Click "Refresh Cluster" to sync map with ganeti </li>
+    </ul>
+
+    <b>Additional Information </b>
+    <ul>
+    <li> Primary Instances refer to the instances directly running over a selected node </li>
+    <li> Secondary Instances refer to the instances whose "mirror" lies on the selected node  </li>
     <li> Color Codes: 
       <ul> 
         <li>  Offline Node: <font color="#DD2222"> Red </font>  </li>
