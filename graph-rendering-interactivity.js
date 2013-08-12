@@ -179,14 +179,6 @@ $(document).keydown(function(e){
 
     // Panning the Graph using arrow keys
     if (e.keyCode == 37) { 
-        // go left
-        cy.panBy({
-            x: -25,
-            y: 0 
-        });
-       return false;
-    }
-    if (e.keyCode == 39) { 
         // go right
         cy.panBy({
             x: 25,
@@ -194,19 +186,27 @@ $(document).keydown(function(e){
         });
        return false;
     }
-    if (e.keyCode == 38) { 
-        // go up
+    if (e.keyCode == 39) { 
+        // go left
         cy.panBy({
-            x: 0,
-            y: -25 
+            x: -25,
+            y: 0 
         });
        return false;
     }
-    if (e.keyCode == 40) { 
+    if (e.keyCode == 38) { 
         // go down
         cy.panBy({
             x: 0,
             y: 25 
+        });
+       return false;
+    }
+    if (e.keyCode == 40) { 
+        // go up
+        cy.panBy({
+            x: 0,
+            y: -25 
         });
        return false;
     }
