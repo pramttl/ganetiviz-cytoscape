@@ -19,6 +19,11 @@ function renderinteractivegraph(){
     layout: {
       name: 'preset'
     },
+
+    minZoom: 0.1,
+    maxZoom: 10,
+
+    // renderer: //TODO: This is something interesting, can be further useful for finer control.
     
     // Adding style to "cytoscape elements" ie. Nodes & Edges
     style: cytoscape.stylesheet()
