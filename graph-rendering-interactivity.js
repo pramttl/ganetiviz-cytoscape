@@ -120,7 +120,8 @@ function renderinteractivegraph(){
       });
 
       // Highlights the edge indicating failover direction.
-      cy.$('node.ganeti-instance').click(function(){
+      cy.on('mousedown', 'node.ganeti-instance', function(event){
+      //cy.$('node.ganeti-instance').click(function(){
           cy.$('edge').toggleClass("active",false);
           pnode = VMGraph[this.id()][0];
           snode = VMGraph[this.id()][1];
