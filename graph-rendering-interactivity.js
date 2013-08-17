@@ -104,6 +104,8 @@ function renderinteractivegraph(){
 
       // Shows all the primary instances for a given node.
       cy.on('click', 'node.ganeti-node', function(event){
+          $("#instancelist-div").css({'visibility':'visible'})
+
           class_string = '.pnode-' + fqdntoid(this.id())
           //console.log(class_string)
 
@@ -123,6 +125,9 @@ function renderinteractivegraph(){
 
           // After the list instance elements are created we bind them to the click event
           $(".list-instance-element").click(function(){
+              $(".list-instance-element").toggleClass('active-list-element',false);
+              $(this).addClass("active-list-element");
+
               //console.log(this.id)
               var instance_id = this.id
               pnode = VMGraph[instance_id][0];
