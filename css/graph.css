@@ -9,7 +9,7 @@ body {
   position: absolute;
   left: 5;
   top: 20px;
-  z-index: -2;
+  z-index: -3;
 }
 
 
@@ -34,7 +34,28 @@ body {
   left: 42%;
   height: 3%;
   width: 14%;
-  z-index: -2;
+  z-index: -3;
   background: #FFEBCD;
   overflow: hidden;
+}
+
+#instancelist-div {
+  position: absolute;
+  top: 45px;
+  right: 0px;
+  height: 100%;
+  width: 16%;
+  z-index: -2;
+  background: #FFEBCD;
+  opacity:0.9;
+  text-align:center;
+  overflow: auto;
+  oveflow-y:hidden;
+  contenteditable:true;
+}
+
+#instancelist {
+  list-style-type: none;
+  margin:2%;
+  padding: 2%;
 }

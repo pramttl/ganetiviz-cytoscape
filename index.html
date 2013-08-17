@@ -14,11 +14,12 @@
     <input id="refresh-button" type="button" value="Refresh Cluster" style="float:right">
     <div style="float:left"> Press 'h' for help..  </div>
 </div>
-  <!-- ## The code ahead will be used in the actual ganetiviz app -->
-  <!-- <input type="button" value="Refresh Cluster" style="float:right" onClick="window.location.href='/ganetiviz/refresh/{{ cluster_hostname }}'"> </input> -->
 
   <div id="cy"></div>
   <input id="instancelookup-div" placeholder="Filter instances by name">
+  <div id="instancelist-div">
+      <ul id="instancelist"></ul>
+  </div>
   <div id="overlay-help"> <br> <b> Help Active </b> </br>
   Press 'h' again to toggle <br/> <br/>
 

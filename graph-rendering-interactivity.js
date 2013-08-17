@@ -102,22 +102,43 @@ function renderinteractivegraph(){
       window.cy = this;
 
 
-      cy.$('node.ganeti-node').mousedown(function(){
+      // Shows all the primary instances for a given node.
+      cy.on('click', 'node.ganeti-node', function(event){
           class_string = '.pnode-' + fqdntoid(this.id())
           //console.log(class_string)
 
           // Collection of instances attached to the node clicked upon.
-          primary_instances = cy.$(class_string)
+          window.primary_instances = cy.$(class_string)
 
-          //// Primary Instances around this node are shown.
-          //primary_instances.css({visibility:'visible'})
-          // If the set of primary instances around this node is already visible then hide them, else show them.
-          if (primary_instances.css('visibility') == 'visible'){
-              primary_instances.css({visibility:'hidden'})
-          }else {
-              primary_instances.css({visibility:'visible'})
-          }
+          //// Primary Instances around this node are shown in a div.
+          var li_elements = ""
+          primary_instances.each(function(i, ele){
+              pinstance = ele['_private']['data']['id']
+              //console.log(pinstance)
+              li_elements += "<li><div class='list-instance-element' id='" + pinstance + "'>" +  pinstance + "</div></li>"
+          });
+
+          $("#instancelist").html(li_elements)
+         
+
+          // After the list instance elements are created we bind them to the click event
+          $(".list-instance-element").click(function(){
+              //console.log(this.id)
+              var instance_id = this.id
+              pnode = VMGraph[instance_id][0];
+              snode = VMGraph[instance_id][1];
+              snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
+
+              // First un-highlight all highlighted failover edges.
+              cy.$('edge').toggleClass("active",false);
+
+              //console.log(snode_edge_selector);
+              eles = cy.$(snode_edge_selector)
+              eles.toggleClass("active",true);
+          });
+ 
       });
+
 
       // Highlights the edge indicating failover direction.
       cy.on('mousedown', 'node.ganeti-instance', function(event){
@@ -181,7 +202,7 @@ function renderinteractivegraph(){
 
 // Other Keyboard Events
 $(document).keydown(function(e){
-    //console.log(e.keyCode)
+    console.log(e.keyCode)
 
     // Panning the Graph using arrow keys
     if (e.keyCode == 37) { 
@@ -221,6 +242,29 @@ $(document).keydown(function(e){
     // Character 'c' is pressed == All the visible instances are cleared. (Actually hidden)
     if (e.keyCode == 67) { 
         cy.$('.ganeti-instance').css({'visibility':'hidden'})
+    }
+
+    // Character 'p' is pressed == All the primary instances are shown attached to the node.
+    if (e.keyCode == 80) {
+        ele = cy.$(':selected')[0]
+        if (ele != null && ele['_private']['classes']['ganeti-node'] == true){
+            pnode = ele['_private']['data']['id']
+
+          class_string = '.pnode-' + fqdntoid(pnode)
+          //console.log(class_string)
+
+          // Collection of instances attached to the node clicked upon.
+          primary_instances = cy.$(class_string)
+
+          //// Primary Instances around this node are shown.
+          //primary_instances.css({visibility:'visible'})
+          // If the set of primary instances around this node is already visible then hide them, else show them.
+          if (primary_instances.css('visibility') == 'visible'){
+              primary_instances.css({visibility:'hidden'})
+          }else {
+              primary_instances.css({visibility:'visible'})
+          }
+      }
     }
 
     // Character 's' is pressed == All the secondary instances corresponding to the highlighted node pop up.
