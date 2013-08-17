@@ -8,6 +8,20 @@ All events for graph interactivity are handled in this file.
 
 GANETIVIZ_HELP_MODE = false;
 
+// This function activates help mode.
+function activate_help(){
+    if (GANETIVIZ_HELP_MODE == false){
+        GANETIVIZ_HELP_MODE = true
+        console.log("Help Mode switched ON")
+        // $("#cy").css({'width': '70%', })
+        $("#overlay-help").css({'visibility':'visible',})
+    } else {
+        GANETIVIZ_HELP_MODE = false
+        $("#overlay-help").css({'visibility':'hidden',})
+        // $("#cy").css({ 'width': '100%'})
+    }
+}
+
 /******************** [2] Cytoscape Viewport Rendering and Interactivity ***********************/
 /**********************************************************************************************/
 
@@ -289,16 +303,7 @@ $(document).keydown(function(e){
 
     // If Character 'h' is pressed then switch help mode on.
     if (e.keyCode == 72) { 
-        if (GANETIVIZ_HELP_MODE == false){
-            GANETIVIZ_HELP_MODE = true
-            console.log("Help Mode switched ON")
-            // $("#cy").css({'width': '70%', })
-            $("#overlay-help").css({'visibility':'visible',})
-        } else {
-            GANETIVIZ_HELP_MODE = false
-            $("#overlay-help").css({'visibility':'hidden',})
-            // $("#cy").css({ 'width': '100%'})
-        }
+        activate_help()
     }
 
     // If Character 'r' is pressed then we reset the graph to the original position (without refreshing the cluster)
@@ -306,4 +311,8 @@ $(document).keydown(function(e){
         buildabstractgraph()
         renderinteractivegraph()
     }
+});
+
+$("#help-div").click(function(){
+    activate_help()
 });

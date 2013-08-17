@@ -48,7 +48,7 @@ body {
   max-height: 80%;
   width: 16%;
   z-index: -2;
-  background: #FFEBCD;
+  background: #FFF8DC;
   opacity:0.9;
   text-align:center;
   overflow: auto;
@@ -60,8 +60,9 @@ body {
   list-style-type: none;
   margin:2%;
   padding: 2%;
+  cursor: pointer;
 }
 
 .active-list-element {
-    background: #9999FF;
+    background: #FFA07A;
 }
