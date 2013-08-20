@@ -12,7 +12,7 @@ GANETIVIZ_HELP_MODE = false;
 function activate_help(){
     if (GANETIVIZ_HELP_MODE == false){
         GANETIVIZ_HELP_MODE = true
-        console.log("Help Mode switched ON")
+        //console.log("Help Mode switched ON")
         // $("#cy").css({'width': '70%', })
         $("#overlay-help").css({'visibility':'visible',})
     } else {
@@ -152,13 +152,13 @@ function renderinteractivegraph(){
 
               // Assigning current instance parameters to varaibles.
               //#TODO: VMGraph[instance_id] could be an object instead of array.
-              pnode = VMGraph[instance_id][0];
-              snode = VMGraph[instance_id][1];
-              owner = VMGraph[instance_id][2];
-              os = VMGraph[instance_id][3];
-              ram = VMGraph[instance_id][4];
-              minram = VMGraph[instance_id][5];
-              status = VMGraph[instance_id][6];
+              var pnode = VMGraph[instance_id][0];
+              var snode = VMGraph[instance_id][1];
+              var owner = VMGraph[instance_id][2];
+              var os = VMGraph[instance_id][3];
+              var ram = VMGraph[instance_id][4];
+              var minram = VMGraph[instance_id][5];
+              var status = VMGraph[instance_id][6];
 
               snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
 
@@ -169,8 +169,14 @@ function renderinteractivegraph(){
               eles = cy.$(snode_edge_selector)
               eles.toggleClass("active",true);
 
-              // Testing if printing additional instance info works.#TODO: Information should be displayed in a div.
-              console.log(os)
+              // #instance-info div populated by instance parameters
+              var instance_info_content = "<ul style='list-style-type: none'>"
+                                        + "<li><b>Owner:</b> " + owner + "</li>" 
+                                        + "<li><b>OS:</b> " + os + "</li>" 
+                                        + "<li><b>Ram:</b> " + ram + "</li>"
+                                        + "<li><b>Status:</b> " + status + "</li>"
+                                        + "</ul>" 
+              $("#instance-info").html(instance_info_content)
 
           });
  
@@ -239,7 +245,7 @@ function renderinteractivegraph(){
 
 // Other Keyboard Events
 $(document).keydown(function(e){
-    console.log(e.keyCode)
+    //console.log(e.keyCode)
 
     // Panning the Graph using arrow keys
     if (e.keyCode == 37) { 

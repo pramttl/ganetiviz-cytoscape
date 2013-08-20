@@ -50,10 +50,9 @@ body {
   z-index: -2;
   background: #FFF8DC;
   opacity:0.9;
-  text-align:center;
+  /* text-align:center; */
   overflow: auto;
   oveflow-y:hidden;
-  contenteditable:true;
 }
 
 #grid-left {
@@ -79,4 +78,16 @@ body {
 
 .active-list-element {
     background: #FFA07A;
+}
+
+#instance-info {
+  position: absolute;
+  bottom: 4%;
+  right: 3%;
+  min-height: 0%;
+  max-height: 20%;
+  width: 18%;
+  z-index: -1;
+  overflow: auto;
+  oveflow-y:hidden;
 }
