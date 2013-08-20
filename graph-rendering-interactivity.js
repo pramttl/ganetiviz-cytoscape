@@ -118,7 +118,7 @@ function renderinteractivegraph(){
 
       // Shows all the primary instances for a given node.
       cy.on('click', 'node.ganeti-node', function(event){
-          $("#instancelist-div").css({'visibility':'visible'})
+          $("#grid-instances").css({'visibility':'visible'})
 
           class_string = '.pnode-' + fqdntoid(this.id())
           //console.log(class_string)
@@ -127,14 +127,19 @@ function renderinteractivegraph(){
           window.primary_instances = cy.$(class_string)
 
           //// Primary Instances around this node are shown in a div.
-          var li_elements = ""
+          var li_elements = []
           primary_instances.each(function(i, ele){
               pinstance = ele['_private']['data']['id']
               //console.log(pinstance)
-              li_elements += "<li><div class='list-instance-element' id='" + pinstance + "'>" +  pinstance + "</div></li>"
+              li_elements.push("<li><div class='list-instance-element' id='" + pinstance + "'>" +  pinstance + "</div></li>")
           });
 
-          $("#instancelist").html(li_elements)
+          list_size = li_elements.length
+          slice_point = Math.floor(list_size/2) + 1
+          li_elements_left = li_elements.slice(0,slice_point)
+          li_elements_right = li_elements.slice(slice_point)
+          $("#instancelist-left").html(li_elements_left)
+          $("#instancelist-right").html(li_elements_right)
          
 
           // After the list instance elements are created we bind them to the click event
