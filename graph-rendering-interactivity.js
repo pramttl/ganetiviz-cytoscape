@@ -144,8 +144,17 @@ function renderinteractivegraph(){
 
               //console.log(this.id)
               var instance_id = this.id
+
+              // Assigning current instance parameters to varaibles.
+              //#TODO: VMGraph[instance_id] could be an object instead of array.
               pnode = VMGraph[instance_id][0];
               snode = VMGraph[instance_id][1];
+              owner = VMGraph[instance_id][2];
+              os = VMGraph[instance_id][3];
+              ram = VMGraph[instance_id][4];
+              minram = VMGraph[instance_id][5];
+              status = VMGraph[instance_id][6];
+
               snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
 
               // First un-highlight all highlighted failover edges.
@@ -154,6 +163,10 @@ function renderinteractivegraph(){
               //console.log(snode_edge_selector);
               eles = cy.$(snode_edge_selector)
               eles.toggleClass("active",true);
+
+              // Testing if printing additional instance info works.#TODO: Information should be displayed in a div.
+              console.log(os)
+
           });
  
       });
@@ -311,6 +324,8 @@ $(document).keydown(function(e){
         buildabstractgraph()
         renderinteractivegraph()
     }
+
+
 });
 
 $("#help-div").click(function(){
