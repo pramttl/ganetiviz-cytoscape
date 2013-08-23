@@ -5,7 +5,7 @@
 # usage:
 #   ./devserver <port-number>
 
-cd `dirname $0`/..
+cd `dirname $0`/
 
 # use default port if called without args
 PORT=2600 
