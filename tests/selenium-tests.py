@@ -47,5 +47,9 @@ html_document.send_keys(Keys.ARROW_UP)
 html_document.send_keys(Keys.ARROW_UP)
 html_document.send_keys(Keys.ARROW_DOWN)
 html_document.send_keys(Keys.ARROW_DOWN)
+# Question - How to assert whether the check works fine.
+
+# Todo: Looking for an answer to-
+# http://stackoverflow.com/questions/18436248/writing-selenium-tests-for-cytoscape-js-applications-locating-nodes-edges
 
 driver.close()
