@@ -117,7 +117,7 @@ function renderinteractivegraph(){
 
 
       // Shows all the primary instances for a given node.
-      cy.on('click', 'node.ganeti-node', function(event){
+      cy.on('select', 'node.ganeti-node', function(event){
           $("#grid-instances").css({'visibility':'visible'})
 
           class_string = '.pnode-' + fqdntoid(this.id())
