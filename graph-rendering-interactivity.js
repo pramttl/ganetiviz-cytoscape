@@ -6,7 +6,7 @@ All events for graph interactivity are handled in this file.
 */
 
 
-GANETIVIZ_HELP_MODE = false;
+window.GANETIVIZ_HELP_MODE = false;
 
 // This function activates help mode.
 function activate_help(){
@@ -141,10 +141,10 @@ function renderinteractivegraph(){
               li_elements.push("<li><div class='list-instance-element "+ li_class + "'" + "id='" + pinstance + "'>" +  pinstance + "</div></li>")
           });
 
-          list_size = li_elements.length
-          slice_point = Math.floor(list_size/2) + 1
-          li_elements_left = li_elements.slice(0,slice_point)
-          li_elements_right = li_elements.slice(slice_point)
+          var list_size = li_elements.length
+          var slice_point = Math.floor(list_size/2) + 1
+          var li_elements_left = li_elements.slice(0,slice_point)
+          var li_elements_right = li_elements.slice(slice_point)
           $("#instancelist-left").html(li_elements_left)
           $("#instancelist-right").html(li_elements_right)
          
@@ -167,7 +167,7 @@ function renderinteractivegraph(){
               var minram = VMGraph[instance_id][5];
               var status = VMGraph[instance_id][6];
 
-              snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
+              var snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
 
               // First un-highlight all highlighted failover edges.
               cy.$('edge').toggleClass("active",false);
@@ -194,11 +194,11 @@ function renderinteractivegraph(){
       cy.on('mousedown', 'node.ganeti-instance', function(event){
       //cy.$('node.ganeti-instance').click(function(){
           cy.$('edge').toggleClass("active",false);
-          pnode = VMGraph[this.id()][0];
-          snode = VMGraph[this.id()][1];
-          snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
+          var pnode = VMGraph[this.id()][0];
+          var snode = VMGraph[this.id()][1];
+          var snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
           //console.log(snode_edge_selector);
-          eles = cy.$(snode_edge_selector)
+          var eles = cy.$(snode_edge_selector)
           eles.toggleClass("active",true);
       });
 
@@ -209,10 +209,10 @@ function renderinteractivegraph(){
   // InputBox Instance-Node Search Feature.
   function vertexSearch(e) {
       if (e.keyCode == 13) {
-          text = $('instancelookup').val() // get the current value of the input field.
+          var text = $('instancelookup').val() // get the current value of the input field.
           var node_selector = "node[name ^='" + text + "']";
           //console.log(node_selector);
-          cy_selected_instance = cy.$(node_selector)
+          var cy_selected_instance = cy.$(node_selector)
           if (cy_selected_instance){
               // Un-highlight all the instances first.
               cy.$(".ganeti-instance").toggleClass("highlighted",false)
@@ -300,11 +300,11 @@ $(document).keydown(function(e){
         if (ele != null && ele['_private']['classes']['ganeti-node'] == true){
             pnode = ele['_private']['data']['id']
 
-          class_string = '.pnode-' + fqdntoid(pnode)
+          var class_string = '.pnode-' + fqdntoid(pnode)
           //console.log(class_string)
 
           // Collection of instances attached to the node clicked upon.
-          primary_instances = cy.$(class_string)
+          var primary_instances = cy.$(class_string)
 
           //// Primary Instances around this node are shown.
           //primary_instances.css({visibility:'visible'})
@@ -322,8 +322,8 @@ $(document).keydown(function(e){
         ele = cy.$(':selected')[0]
         if (ele != null && ele['_private']['classes']['ganeti-node'] == true){
             cy.$('.ganeti-instance').css({'visibility':'hidden'})
-            snode = ele['_private']['data']['id']
-            sec_instances_selector = '.snode-' + fqdntoid(snode)
+            var snode = ele['_private']['data']['id']
+            var sec_instances_selector = '.snode-' + fqdntoid(snode)
             sec_instances = cy.$(sec_instances_selector)
             //console.log(sec_instances_selector)
             sec_instances.css({'visibility':'visible'})

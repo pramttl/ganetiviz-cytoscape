@@ -8,7 +8,7 @@
 
 function buildabstractgraph(){
 
-  syscenter = {x:500,y:500} // Center of the whole System
+  var syscenter = {x:500,y:500} // Center of the whole System
   var pp = polypointscircle(syscenter,200,5)
 
   window.CytoNodeList = []            // A list of node objects in a format required by Cytoscape JS will be added to this list.
@@ -26,12 +26,12 @@ function buildabstractgraph(){
   */
   var loop_index = 0;
   gnodes_json.forEach(function(node) {
-      gnode = node["fields"]["hostname"]
-      offline = node["fields"]["offline"]
-      position = pp[loop_index]
+      var gnode = node["fields"]["hostname"]
+      var offline = node["fields"]["offline"]
+      var position = pp[loop_index]
       CytoNodePositions[gnode] = position
 
-      gnode_color = '#6FB1FC'
+      var gnode_color = '#6FB1FC'
       if (offline){
           //console.log("Offline!")
           gnode_color = '#DD2222'
@@ -39,7 +39,7 @@ function buildabstractgraph(){
 
 
       // Adding the (g)nodes ie. Ganeti Nodes to the Cytoscape NodeList
-      cytoscape_node_obj =       
+      var cytoscape_node_obj =       
         {data: { id: gnode, name: gnode, weight: 100,color:gnode_color},
           position: position, classes:'ganeti-node', locked: true};
       CytoNodeList.push(cytoscape_node_obj);
@@ -56,14 +56,14 @@ function buildabstractgraph(){
   - Adds items to "NodeInstanceLinks"
   */
   vms_json.forEach(function(vm) {
-      vm_hostname = vm["fields"]["hostname"]
-      pnode = vm["fields"]["primary_node"]    // A Ganeti Node referred ahead as (g)node
-      snode = vm["fields"]["secondary_node"]  // (g)node
-      owner = vm["fields"]["owner"]
-      os = vm["fields"]["operating_system"]
-      ram = vm["fields"]["ram"]
-      minram = vm["fields"]["minram"]
-      status = vm["fields"]["status"]
+      var vm_hostname = vm["fields"]["hostname"]
+      var pnode = vm["fields"]["primary_node"]    // A Ganeti Node referred ahead as (g)node
+      var snode = vm["fields"]["secondary_node"]  // (g)node
+      var owner = vm["fields"]["owner"]
+      var os = vm["fields"]["operating_system"]
+      var ram = vm["fields"]["ram"]
+      var minram = vm["fields"]["minram"]
+      var status = vm["fields"]["status"]
 
 
       // A HashMap object that will contain mapping from VM to pnode or snode for fast search
@@ -98,9 +98,9 @@ function buildabstractgraph(){
   //    VM's should lie on a circle around their respective primary node at regular intervals for clean display.
   VMPositions = {}  // A HashMap object defining VM positions for each (g)node.
   for (nodekey in NodeInstanceLinks){
-      N = NodeInstanceLinks[nodekey] 
-      node_position = CytoNodePositions[nodekey]    // We are going to generate points around this coordinate lying on a circle.
-      R = 50                                       // Setting R constant for now. #TODO Check optimal value.
+      var N = NodeInstanceLinks[nodekey] 
+      var node_position = CytoNodePositions[nodekey]    // We are going to generate points around this coordinate lying on a circle.
+      var R = 50                                       // Setting R constant for now. #TODO Check optimal value.
       VMPositions[nodekey] = polypointscircle(center=node_position,R,N)
   }
 
@@ -117,19 +117,19 @@ function buildabstractgraph(){
   vms_json_sorted = vms_json.sort(function(a,b) {return a.fields.hostname - b.fields.hostname });
   vms_json_sorted.forEach(function(vm) {
 
-      vm_hostname = vm["fields"]["hostname"]
-      pnode = vm["fields"]["primary_node"]    // (g)node
-      snode = vm["fields"]["secondary_node"]
-      vm_status = vm["fields"]["status"]
+      var vm_hostname = vm["fields"]["hostname"]
+      var pnode = vm["fields"]["primary_node"]    // (g)node
+      var snode = vm["fields"]["secondary_node"]
+      var vm_status = vm["fields"]["status"]
 
       // Assigning a color to instances as per status. green for "running" instance, red for the rest.
-      vm_color = '#AA0000'
+      var vm_color = '#AA0000'
       if (vm_status == "running"){
           vm_color = '#00CC00'
       }
 
       // Adding classes to each instance vertice that make its selection convenient.
-      instance_classes_string = 'ganeti-instance ' + 'pnode-' + fqdntoid(pnode) + ' snode-' + fqdntoid(snode)
+      var instance_classes_string = 'ganeti-instance ' + 'pnode-' + fqdntoid(pnode) + ' snode-' + fqdntoid(snode)
 
       // Adding Cytoscape Graph Vertices representing Instances
       cytoscape_node_obj =  {
@@ -139,7 +139,7 @@ function buildabstractgraph(){
       CytoNodeList.push(cytoscape_node_obj);
 
       // Adding Cytoscape Graph Edges: (g)Node-Instance edges.
-      cytoscape_edge_obj = { data: { source: pnode, target: vm_hostname, color: '#6FFCB1', strength:1 }, classes: 'instance-edge'};
+      var cytoscape_edge_obj = { data: { source: pnode, target: vm_hostname, color: '#6FFCB1', strength:1 }, classes: 'instance-edge'};
       CytoEdgeList.push(cytoscape_edge_obj);
 
   });
@@ -150,7 +150,7 @@ function buildabstractgraph(){
   // [1.5] Adding the remaining Cytoscape Graph Edges: (g)Node-(g)Node edges
   for (sourcenodekey in FailoverLinks) {
       for (targetnodekey in FailoverLinks[sourcenodekey]){
-          cytoscape_edge_obj = { data: { source: sourcenodekey, target: targetnodekey, 
+          var cytoscape_edge_obj = { data: { source: sourcenodekey, target: targetnodekey, 
                                  color: '#6FB1FC', strength: FailoverLinks[sourcenodekey][targetnodekey] }, classes: 'node-edge'};
           CytoEdgeList.push(cytoscape_edge_obj);
       }
