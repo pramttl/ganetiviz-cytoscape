@@ -57,7 +57,7 @@ def create_vms_list(vmdict):
         vm_obj["operating_system"] = "image+cirros"
         vm_obj["owner"] = 'Pranjal'
         vm_obj["minram"] = -1
-        vm_obj["primary_node__hostnmae"] = pnode
+        vm_obj["primary_node__hostname"] = pnode
         vms_list.append(vm_obj)  
     return vms_list
 
