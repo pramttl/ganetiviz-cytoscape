@@ -22,6 +22,19 @@ function activate_help(){
     }
 }
 
+
+function update_instance_info(owner,os,ram, status){
+    // #instance-info div populated by instance parameters
+    var instance_info_content = "<ul style='list-style-type: none'>"
+                            + "<li><b>Owner:</b> " + owner + "</li>" 
+                            + "<li><b>OS:</b> " + os + "</li>" 
+                            + "<li><b>Ram:</b> " + ram + "</li>"
+                            + "<li><b>Status:</b> " + status + "</li>"
+                            + "</ul>" 
+    $("#instance-info").html(instance_info_content)
+}
+
+
 /******************** [2] Cytoscape Viewport Rendering and Interactivity ***********************/
 /**********************************************************************************************/
 
@@ -157,6 +170,9 @@ function renderinteractivegraph(){
               //console.log(this.id)
               var instance_id = this.id
 
+              // Fetch additional instance data via AJAX.
+
+
               // Assigning current instance parameters to varaibles.
               //#TODO: VMGraph[instance_id] could be an object instead of array.
               var pnode = VMGraph[instance_id][0];
@@ -176,14 +192,9 @@ function renderinteractivegraph(){
               eles = cy.$(snode_edge_selector)
               eles.toggleClass("active",true);
 
-              // #instance-info div populated by instance parameters
-              var instance_info_content = "<ul style='list-style-type: none'>"
-                                        + "<li><b>Owner:</b> " + owner + "</li>" 
-                                        + "<li><b>OS:</b> " + os + "</li>" 
-                                        + "<li><b>Ram:</b> " + ram + "</li>"
-                                        + "<li><b>Status:</b> " + status + "</li>"
-                                        + "</ul>" 
-              $("#instance-info").html(instance_info_content)
+              update_instance_info(owner,os,ram, status)
+
+              //TODO: Getting live instance data via GWM RAPI Proxy view.
 
           });
  
@@ -194,10 +205,22 @@ function renderinteractivegraph(){
       cy.on('mousedown', 'node.ganeti-instance', function(event){
       //cy.$('node.ganeti-instance').click(function(){
           cy.$('edge').toggleClass("active",false);
-          var pnode = VMGraph[this.id()][0];
-          var snode = VMGraph[this.id()][1];
+
+          var instance_id = this.id
+
+          // Assigning current instance parameters to varaibles.
+          var pnode = VMGraph[instance_id][0];
+          var snode = VMGraph[instance_id][1];
+          var owner = VMGraph[instance_id][2];
+          var os = VMGraph[instance_id][3];
+          var ram = VMGraph[instance_id][4];
+          var minram = VMGraph[instance_id][5];
+          var status = VMGraph[instance_id][6];
+
+          update_instance_info(owner,os,ram, status)
+
+          // Highlighting failover edge.
           var snode_edge_selector = "edge[source='" + pnode + "'][target='" + snode + "']";
-          //console.log(snode_edge_selector);
           var eles = cy.$(snode_edge_selector)
           eles.toggleClass("active",true);
       });
