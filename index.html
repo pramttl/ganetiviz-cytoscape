@@ -65,6 +65,9 @@
   <script src="graph-rendering-interactivity.js"></script>
 
   <script>
+      // An offline test mode flag. Which should be set to false when using with GWM
+      window.GANETIVIZ_TEST_MODE = true
+
       window.gnodes_json = graph_json["nodes"]
       window.vms_json = graph_json["vms"]
 

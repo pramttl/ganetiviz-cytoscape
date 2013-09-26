@@ -1,16 +1,17 @@
 # Visualising a Ganeti Cluster Graph with HTML5, Javascript (using Cytoscape JS)
 
-The code makes use of the sample OSUOSL cluster configuration JSON and tries to 
-create graphical visualisations for the cluster graph  made avaialbe by @ramereth, 
-courtsey [OSUOSL](http://github.com/osuosl).
-The goal of this is project is to experiment with various Ganeti Cluster Visualization 
-strategies that System administrators find useful and develop intuitive prototypes.
+A front-end component of the Ganetiviz app of [Ganeti Web Manager](https://github.com/osuosl/ganeti_webmgr).
+Ganeti Web Manager is a project initiated by the [OSU | Open Source Lab](http://osuosl.org). 
+Ganetiviz helps in intuitive visualization of ganeti clusters in the  form of graphical mappings that help System Administrators,
+get an easy insight into the configuration of a Ganeti cluster.
 
-The greater goal is to support the [Ganeti Web Manager](https://github.com/osuosl/ganeti_webmgr) 
-project at the [OSUOSL](http://osuosl.org). Visualisation of clusters in the 
-form of smart cluster mappings that will help System Administrators,
-get more insights into their Cluster, Node, VM configuration
- and usage in a convenient manner.
+#### UPDATE (26-Sep-2013):
+
+This project though fully functional with no external dependencies, is now deprecated 
+in favour of [devganetiviz](https://github.com/pramttl/devganetiviz) which is a django
+based extension to this project. 
+The latter includes some python dependencies like django, but offers multiple advantages.
+However you may want to refer to this project for historical reasons and version history.
 
 # Requirements
 
